@@ -366,3 +366,61 @@ Notification {
   createdAt: Date
 }
 ```
+---
+
+## Data Flow Examples
+
+### Example 1: User Finds and Matches with a Buddy
+1. User opens Shy app
+   → Mobile app authenticates via Supabase Auth (JWT token)
+
+2. User browses events
+   → GET /api/events?city=Lagos
+   → Backend queries MongoDB for events
+   → Returns paginated list of events
+
+3. User selects "Moonshot Conference - March 15"
+   → GET /api/events/abc123
+   → Backend returns event details + attendee count
+
+4. User marks attendance
+   → POST /api/events/abc123/attend
+   → Backend adds user to event.attendees array
+   → Returns success
+
+5. User views potential buddies
+   → GET /api/events/abc123/potential-buddies
+   → Backend:
+     a. Finds all users attending same event
+     b. Calculates compatibility scores
+     c. Sorts by score (descending)
+     d. Returns top 10 matches
+   → Mobile app displays buddy cards
+
+6. User sends buddy request to Sarah
+   → POST /api/connections/request
+     Body: { eventId: 'abc123', requestedUserId: 'sarah_id' }
+   → Backend:
+     a. Creates Connection document (status: pending)
+     b. Saves to MongoDB
+     c. Triggers push notification to Sarah via FCM
+   → Returns success
+
+7. Sarah receives notification
+   → FCM delivers push notification to Sarah's device
+   → "New buddy request from John for Moonshot Conference!"
+
+8. Sarah opens app and accepts request
+   → PUT /api/connections/xyz789/accept
+   → Backend:
+     a. Updates Connection.status = 'accepted'
+     b. Saves to MongoDB
+     c. Triggers push notification to John via FCM
+   → Returns success
+
+9. Both users can now chat
+   → Chat screen opens
+   → WebSocket connection established via Socket.io
+   → Both join room: `connection_xyz789`
+   → Real-time chat enabled
+
