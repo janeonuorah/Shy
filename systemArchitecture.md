@@ -506,3 +506,60 @@ Notification {
 - All personal contact sharing (phone, social media) is opt-in
 - Users can delete their account (hard delete after 30 days)
 
+
+## Why This Architecture Works for Shy
+
+### 1. Mobile-First Design
+Real-world event attendance requires:
+- **Push notifications** for timely buddy requests and messages
+- **Location services** for "events near you" and venue coordination
+- **Camera access** for easy profile photo uploads
+- **Always available** in user's pocket at events
+
+A web app would compromise these essential features.
+
+### 2. Real-Time Communication
+- Socket.io provides low-latency chat experience
+- Users need immediate responses to feel comfortable
+- Typing indicators and read receipts reduce uncertainty
+
+### 3. Flexible Data Model
+- MongoDB's document structure accommodates varied user preferences
+- Easy to add new fields
+- Nested data (messages in conversations) stored naturally
+
+### 4. Proven Technology Stack
+- React Native + Node.js = battle-tested, widely adopted
+- Large communities → easy to find help, libraries, developers
+- Supabase Auth → secure authentication without building from scratch
+- MongoDB Atlas →  managed database, automatic backups
+
+### 5. Cost-Effective MVP
+- Start with free tiers (MongoDB, Supabase free credits)
+- No upfront infrastructure costs
+
+### 6. Security & Privacy First
+- Users need trust → Supabase Auth, encrypted connections, privacy controls
+- Event-scoped connections → data minimization (only share what's needed)
+- User control over visibility
+
+---
+
+## Open Questions & Future Considerations
+
+### Abuse Prevention
+**Problem**: What if users accept requests but ghost their buddy?
+**Potential Solutions**:
+- Reputation system (buddies rate each other post-event)
+- Strike system (3 no-shows = account warning)
+- Require verified phone number for accountability
+
+### Internationalization
+- Multi-language support (English, French, Spanish, etc.)
+- Localized event discovery (timezone-aware)
+
+### Offline Support
+- Cache event data for offline browsing
+- Queue messages when offline, send when reconnected
+
+---
