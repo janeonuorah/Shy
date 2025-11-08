@@ -529,7 +529,7 @@ A web app would compromise these essential features.
 - Nested data (messages in conversations) stored naturally
 
 ### 4. Proven Technology Stack
-- React Native + Node.js = battle-tested, widely adopted
+- React Native + Node.js = Widely tested & adopted
 - Large communities → easy to find help, libraries, developers
 - Supabase Auth → secure authentication without building from scratch
 - MongoDB Atlas →  managed database, automatic backups
@@ -567,3 +567,5 @@ A web app would compromise these essential features.
 ## Conclusion
 
 This architecture provides a solid foundation for Shy's MVP while allowing room to scale as the user base grows. The mobile-first approach ensures the best experience for event-goers, and the technology choices balance ease of development with production-readiness.
+
+The modular design (separate services for users, events, matching, chat) allows the team to iterate quickly and add features without breaking existing functionality.
