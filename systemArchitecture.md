@@ -563,3 +563,7 @@ A web app would compromise these essential features.
 - Queue messages when offline, send when reconnected
 
 ---
+
+## Conclusion
+
+This architecture provides a solid foundation for Shy's MVP while allowing room to scale as the user base grows. The mobile-first approach ensures the best experience for event-goers, and the technology choices balance ease of development with production-readiness.
