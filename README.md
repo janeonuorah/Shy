@@ -48,13 +48,13 @@ Connect with someone beforehand, chat, and plan where to meet
 
 ## 📱 Current Status
 
-**Stage**: Early prototyping (Stage 3A complete)
+**Stage**: Ideation & Early prototyping (Stage 3A complete)
 
 View the [concept mockups](https://docs.google.com/document/d/1bZ-iJ2T9OxzNM5yEnenEEPBh01PSzf_1hg65r2UGYiQ/edit?usp=sharing) from Stage 3A.
 
 ## 👤 About
 
-Created as part of a product management internship, HNGi13, Shy addresses a real gap in how we approach event attendance for anxious individuals.
+Created as part of a product management internship (HNGi13), Shy addresses a real gap in how we approach event attendance for anxious individuals.
 
 ---
 
