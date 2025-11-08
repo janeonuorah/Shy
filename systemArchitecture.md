@@ -474,3 +474,15 @@ Notification {
    → Server sends push notification via FCM
    → "New message from John: Excited for the conference!"
 
+
+---
+
+## Security & Privacy
+
+### Authentication Flow
+1. User signs up → Supabase creates account, sends verification email
+2. User logs in → Supabase returns JWT access token + refresh token
+3. Mobile app stores tokens securely (iOS Keychain / Android Keystore)
+4. All API requests include `Authorization: Bearer <jwt_token>` header
+5. Backend validates JWT on every request
+6. Tokens expire after 1 hour, refresh tokens used to get new access tokens
