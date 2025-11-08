@@ -486,3 +486,10 @@ Notification {
 4. All API requests include `Authorization: Bearer <jwt_token>` header
 5. Backend validates JWT on every request
 6. Tokens expire after 1 hour, refresh tokens used to get new access tokens
+
+### Authorization Rules
+- Users can only view profiles of people attending the same event
+- Chat access requires accepted connection (status: 'accepted')
+- Users cannot see other people's conversations
+- Event attendee lists only show users who opted in to be visible
+
