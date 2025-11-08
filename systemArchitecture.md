@@ -168,7 +168,7 @@ User {
   }
   bio: String
   profilePhoto: String (URL)
-  comfortLevel: Enum ['social', 'moderate', 'high-anxiety']
+  comfortLevel: Enum ['social', 'moderate']
   preferences: {
     textBeforeMeeting: Boolean,
     smallGroups: Boolean,
@@ -221,5 +221,63 @@ Event {
   updatedAt: Date
 }
 ```
-
 ---
+### 3. Matching Service
+
+**Responsibilities:**
+- Find potential buddies for an event
+- Manage buddy requests (send, accept, decline)
+- Track connection status
+
+**Key API Endpoints:**
+```
+GET    /api/events/:id/potential-buddies  - Get match suggestions
+POST   /api/connections/request           - Send buddy request
+PUT    /api/connections/:id/accept        - Accept request
+PUT    /api/connections/:id/decline       - Decline request
+GET    /api/connections                   - Get all connections
+DELETE /api/connections/:id               - Unmatch/remove
+```
+
+**Matching Algorithm:**
+```javascript
+// Pseudocode for matching
+function calculateCompatibilityScore(user1, user2) {
+  let score = 0;
+  
+  // Same event attendance (required)
+  if (!attendingSameEvent(user1, user2)) return 0;
+  
+  // Comfort level compatibility (30% weight)
+  const comfortScore = compareComfortLevels(user1.comfortLevel, user2.comfortLevel);
+  score += comfortScore * 30;
+  
+  // Interest overlap (40% weight)
+  const interestScore = calculateInterestOverlap(user1.interests, user2.interests);
+  score += interestScore * 40;
+  
+  // Preference alignment (30% weight)
+  const prefScore = comparePreferences(user1.preferences, user2.preferences);
+  score += prefScore * 30;
+  
+  return score; // 0-100
+}
+
+// Sort potential buddies by score, return top matches
+```
+
+**Data Model (MongoDB):**
+```javascript
+Connection {
+  _id: ObjectId
+  eventId: ObjectId (reference to Event)
+  users: [ObjectId, ObjectId] (two user IDs)
+  requestedBy: ObjectId (who initiated)
+  status: Enum ['pending', 'accepted', 'declined', 'completed']
+  compatibilityScore: Number
+  createdAt: Date
+  acceptedAt: Date
+  updatedAt: Date
+  eventDate: Date
+}
+```
