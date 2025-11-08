@@ -1,6 +1,3 @@
-# Shy
-An anxiety-friendly app for finding event buddies
-
 # Shy - Never Go to an Event Alone Again
 
 ## 🎯 What is Shy?
