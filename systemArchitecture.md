@@ -424,3 +424,53 @@ Notification {
    → Both join room: `connection_xyz789`
    → Real-time chat enabled
 
+---
+
+### Example 2: Real-Time Chat
+
+1. John (matched with Sarah) opens chat screen
+   → Mobile app establishes WebSocket connection
+   → Socket.io client connects to backend
+   → Authentication via JWT token in handshake
+
+2. Server authenticates and adds John to room
+   → Server validates JWT
+   → Server joins John to Socket.io room: `connection_xyz789`
+   → Server confirms connection success
+
+3. Sarah also opens chat screen
+   → Same WebSocket connection process
+   → Sarah joins same room: `connection_xyz789`
+
+4. John types a message: "Excited for the conference!"
+   → Mobile app emits 'typing' event
+   → Server broadcasts to room (Sarah sees "John is typing...")
+
+5. John sends the message
+   → Mobile app emits 'send-message' event
+     Data: { connectionId: 'xyz789', content: 'Excited for the conference!' }
+   → Server receives event:
+     a. Validates John is in this connection
+     b. Saves message to MongoDB:
+        {
+          connectionId: 'xyz789',
+          senderId: 'john_id',
+          content: 'Excited for the conference!',
+          timestamp: Date.now(),
+          read: false
+        }
+     c. Broadcasts 'receive-message' to room
+   → Sarah's app receives event in real-time
+   → Sarah's chat screen displays message instantly
+
+6. Sarah reads the message
+   → Mobile app emits 'mark-read' event
+     Data: { messageId: 'msg123' }
+   → Server updates MongoDB: message.read = true
+   → Server broadcasts 'message-read' to room
+   → John's app shows read receipt (double check)
+
+7. If Sarah's app is in background
+   → Server sends push notification via FCM
+   → "New message from John: Excited for the conference!"
+
