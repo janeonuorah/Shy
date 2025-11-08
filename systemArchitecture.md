@@ -281,3 +281,42 @@ Connection {
   eventDate: Date
 }
 ```
+
+---
+
+### 4. Chat Service
+
+**Responsibilities:**
+- Real-time message delivery between matched users
+- Message persistence
+- Typing indicators
+- Read receipts
+
+**Technology**: Socket.io for WebSocket communication
+
+**Key Socket Events:**
+```javascript
+// Client → Server
+'join-chat'      - Join specific connection room
+'send-message'   - Send message to buddy
+'typing'         - Notify buddy user is typing
+'mark-read'      - Mark messages as read
+
+// Server → Client
+'receive-message' - New message from buddy
+'buddy-typing'    - Buddy is typing
+'message-read'    - Buddy read your message
+```
+
+**Data Model (MongoDB):**
+```javascript
+Message {
+  _id: ObjectId
+  connectionId: ObjectId (reference to Connection)
+  senderId: ObjectId (reference to User)
+  content: String
+  timestamp: Date (indexed)
+  read: Boolean
+  readAt: Date
+}
+```
