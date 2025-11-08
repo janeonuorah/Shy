@@ -493,3 +493,16 @@ Notification {
 - Users cannot see other people's conversations
 - Event attendee lists only show users who opted in to be visible
 
+### Data Protection
+- All API communication over HTTPS
+- Database connections encrypted (MongoDB Atlas SSL)
+- User passwords hashed with bcrypt (handled by Supabase)
+- Profile photos stored in Supabase
+- Sensitive user data (email) not exposed in public APIs
+
+### Privacy Controls
+- Users control visibility per event (show/hide from buddy list)
+- Option to report/block users
+- All personal contact sharing (phone, social media) is opt-in
+- Users can delete their account (hard delete after 30 days)
+
