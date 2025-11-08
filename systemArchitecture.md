@@ -320,3 +320,49 @@ Message {
   readAt: Date
 }
 ```
+
+**Chat Flow:**
+
+1. User A and User B are matched (Connection status: accepted)
+2. Both users open chat screen
+3. Mobile app connects to Socket.io server via WebSocket
+4. Server authenticates user via JWT token
+5. Users join room: `connection_${connectionId}`
+6. User A types message → emits 'send-message'
+7. Server validates, saves to MongoDB
+8. Server emits 'receive-message' to User B in same room
+9. User B's app shows message in real-time
+10. User B reads message → emits 'mark-read'
+11. Server updates message.read = true
+12. Server notifies User A via 'message-read' event
+
+---
+
+### 5. Notification Service
+
+**Responsibilities:**
+- Send push notifications for key events
+- In-app notification center
+- Notification preferences management
+
+**Technology**: Firebase Cloud Messaging (FCM)
+
+**Notification Triggers:**
+- Buddy request received
+- Buddy request accepted
+- New message received (when app in background)
+- Event reminder (24 hours before, 2 hours before)
+
+**Data Model (MongoDB):**
+```javascript
+Notification {
+  _id: ObjectId
+  userId: ObjectId
+  type: Enum ['buddy-request', 'request-accepted', 'message', 'event-reminder']
+  title: String
+  body: String
+  data: Object (context-specific data)
+  read: Boolean
+  createdAt: Date
+}
+```
