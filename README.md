@@ -56,6 +56,3 @@ View the [concept mockups](https://docs.google.com/document/d/1bZ-iJ2T9OxzNM5yEn
 
 Created as part of a product management internship (HNGi13), Shy addresses a real gap in how we approach event attendance for anxious individuals.
 
----
-
-Made with 💙 for everyone who's ever wanted to go somewhere but couldn't face going alone.
